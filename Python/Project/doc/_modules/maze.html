@@ -1,0 +1,669 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>maze &#8212; Module Maze 0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Module Maze 0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for maze</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">:mod:`maze` module </span>
+
+<span class="sd">:author: ` Jouniau,Debachy,Bivolarov </span>
+<span class="sd">         </span>
+
+<span class="sd">:date: 2018, november</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">cell</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">random</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">copy</span> <span class="k">import</span> <span class="n">deepcopy</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+
+<div class="viewcode-block" id="Maze"><a class="viewcode-back" href="../maze.html#maze.Maze">[docs]</a><span class="k">class</span> <span class="nc">Maze</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    class for mazes</span>
+
+<span class="sd">    &gt;&gt;&gt; maze=Maze(4,5)</span>
+<span class="sd">    &gt;&gt;&gt; maze</span>
+<span class="sd">    +-+-+-+-+</span>
+<span class="sd">    | | | | |</span>
+<span class="sd">    +-+-+-+-+</span>
+<span class="sd">    | | | | |</span>
+<span class="sd">    +-+-+-+-+</span>
+<span class="sd">    | | | | |</span>
+<span class="sd">    +-+-+-+-+</span>
+<span class="sd">    | | | | |</span>
+<span class="sd">    +-+-+-+-+</span>
+<span class="sd">    | | | | |</span>
+<span class="sd">    +-+-+-+-+</span>
+<span class="sd">    &gt;&gt;&gt; maze.get_height()</span>
+<span class="sd">    5</span>
+<span class="sd">    &gt;&gt;&gt; maze.get_width()</span>
+<span class="sd">    4</span>
+<span class="sd">    &gt;&gt;&gt; maze.is_cell(0,0,&#39;N&#39;)</span>
+<span class="sd">    False</span>
+<span class="sd">    &gt;&gt;&gt; maze.is_cell(0,0,&#39;S&#39;)</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; maze.dest_wall(0,0,&#39;S&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; maze</span>
+<span class="sd">    +-+-+-+-+</span>
+<span class="sd">    | | | | |</span>
+<span class="sd">    + +-+-+-+</span>
+<span class="sd">    | | | | |</span>
+<span class="sd">    +-+-+-+-+</span>
+<span class="sd">    | | | | |</span>
+<span class="sd">    +-+-+-+-+</span>
+<span class="sd">    | | | | |</span>
+<span class="sd">    +-+-+-+-+</span>
+<span class="sd">    | | | | |</span>
+<span class="sd">    +-+-+-+-+</span>
+<span class="sd">    &gt;&gt;&gt; maze.maze_cell[0][0].test_wall(&#39;S&#39;)</span>
+<span class="sd">    False</span>
+<span class="sd">    &gt;&gt;&gt; maze.ad_wall(0,0,&#39;S&#39;)</span>
+<span class="sd">    &gt;&gt;&gt; maze.maze_cell[0][0].test_wall(&#39;S&#39;)</span>
+<span class="sd">    True</span>
+<span class="sd">    &gt;&gt;&gt; maze.is_finished()</span>
+<span class="sd">    False</span>
+<span class="sd">    &gt;&gt;&gt; Maze(4,5).create_perfect_maze().is_finished()</span>
+<span class="sd">    True</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">width</span><span class="p">,</span><span class="n">height</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        create a maze with a width ,a height and a list of Cells objects.</span>
+
+<span class="sd">        This method is implicitely called at object creation.</span>
+
+<span class="sd">        :param width: </span>
+<span class="sd">        :type width: int</span>
+<span class="sd">        :param height: </span>
+<span class="sd">        :type height: int</span>
+<span class="sd">        :raises: ``AssertionError`` if params are not int</span>
+<span class="sd">        :Examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; maze=Maze(4,5)</span>
+<span class="sd">        &gt;&gt;&gt; maze.get_height()</span>
+<span class="sd">        5</span>
+<span class="sd">        &gt;&gt;&gt; maze.get_width()</span>
+<span class="sd">        4</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">width</span><span class="p">)</span> <span class="ow">in</span> <span class="p">{</span><span class="nb">int</span><span class="p">},</span> <span class="s1">&#39;first argument is not an int&#39;</span>
+        <span class="k">assert</span> <span class="nb">type</span><span class="p">(</span><span class="n">height</span><span class="p">)</span> <span class="ow">in</span> <span class="p">{</span><span class="nb">int</span><span class="p">},</span> <span class="s1">&#39;second argument is not an int&#39;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__width</span> <span class="o">=</span> <span class="n">width</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">__height</span> <span class="o">=</span> <span class="n">height</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span> <span class="o">=</span> <span class="p">[[</span> <span class="n">Cell</span><span class="p">(</span><span class="n">x</span><span class="o">*</span><span class="n">height</span><span class="o">+</span><span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__width</span><span class="p">)]</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">__height</span><span class="p">)]</span>
+
+
+<div class="viewcode-block" id="Maze.get_width"><a class="viewcode-back" href="../maze.html#maze.Maze.get_width">[docs]</a>    <span class="k">def</span> <span class="nf">get_width</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        return the width of the maze</span>
+
+<span class="sd">        :return: the width of self</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        :UC: None</span>
+<span class="sd">        :Example:</span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; maze=Maze(5,8)</span>
+<span class="sd">        &gt;&gt;&gt; maze.get_width()</span>
+<span class="sd">        5</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__width</span></div>
+
+<div class="viewcode-block" id="Maze.get_height"><a class="viewcode-back" href="../maze.html#maze.Maze.get_height">[docs]</a>    <span class="k">def</span> <span class="nf">get_height</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        return the height of the maze</span>
+
+<span class="sd">        :return: the height of self</span>
+<span class="sd">        :rtype: int</span>
+<span class="sd">        :UC: None</span>
+<span class="sd">        :Example:</span>
+<span class="sd">        &gt;&gt;&gt; maze=Maze(5,8)</span>
+<span class="sd">        &gt;&gt;&gt; maze.get_height()</span>
+<span class="sd">        8</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">__height</span></div>
+
+    <span class="k">def</span> <span class="nf">__repr__</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span> <span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: an external representation of a maze</span>
+<span class="sd">           (for visualizing maze in interactive mode for example)</span>
+<span class="sd">        :rtype: str</span>
+<span class="sd">        :UC: None</span>
+<span class="sd">        :Example:</span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; Maze(5,5)</span>
+<span class="sd">        +-+-+-+-+-+</span>
+<span class="sd">        | | | | | |</span>
+<span class="sd">        +-+-+-+-+-+</span>
+<span class="sd">        | | | | | |</span>
+<span class="sd">        +-+-+-+-+-+</span>
+<span class="sd">        | | | | | |</span>
+<span class="sd">        +-+-+-+-+-+</span>
+<span class="sd">        | | | | | |</span>
+<span class="sd">        +-+-+-+-+-+</span>
+<span class="sd">        | | | | | |</span>
+<span class="sd">        +-+-+-+-+-+</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">a</span> <span class="o">=</span> <span class="s1">&#39;&#39;</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_height</span><span class="p">()):</span>
+            <span class="n">a</span> <span class="o">+=</span> <span class="s1">&#39;+&#39;</span>
+            <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_width</span><span class="p">())</span> <span class="p">:</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">test_wall</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                    <span class="n">a</span> <span class="o">+=</span> <span class="s1">&#39;-+&#39;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">a</span> <span class="o">+=</span> <span class="s1">&#39; +&#39;</span>
+            <span class="n">a</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">test_wall</span><span class="p">(</span><span class="s1">&#39;W&#39;</span><span class="p">)</span> <span class="o">==</span> <span class="kc">True</span><span class="p">:</span>
+                <span class="n">a</span> <span class="o">+=</span> <span class="s1">&#39;|&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">a</span> <span class="o">+=</span> <span class="s1">&#39; &#39;</span>
+            <span class="k">for</span> <span class="n">c</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_width</span><span class="p">()):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">c</span><span class="p">]</span><span class="o">.</span><span class="n">test_wall</span><span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+                     <span class="n">a</span> <span class="o">+=</span> <span class="s1">&#39; |&#39;</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">a</span> <span class="o">+=</span> <span class="s1">&#39;  &#39;</span>
+            <span class="n">a</span> <span class="o">+=</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span>
+        <span class="n">a</span> <span class="o">+=</span> <span class="s1">&#39;+&#39;</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_width</span><span class="p">()):</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">y</span><span class="p">]</span><span class="o">.</span><span class="n">test_wall</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">)</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+                    <span class="n">a</span> <span class="o">+=</span> <span class="s1">&#39;-+&#39;</span>
+            <span class="k">else</span><span class="p">:</span>
+                    <span class="n">a</span> <span class="o">+=</span> <span class="s1">&#39; +&#39;</span>
+        <span class="k">return</span> <span class="n">a</span> 
+
+
+    
+    
+<div class="viewcode-block" id="Maze.is_cell"><a class="viewcode-back" href="../maze.html#maze.Maze.is_cell">[docs]</a>    <span class="k">def</span> <span class="nf">is_cell</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">wall</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        :return: a boolean verifying if there&#39;s a Cell or not at this emplacement</span>
+
+<span class="sd">        :rtype: boolean</span>
+<span class="sd">        :UC: None</span>
+<span class="sd">        :Example:</span>
+
+<span class="sd">        &gt;&gt;&gt; maze=Maze(4,5)</span>
+<span class="sd">        &gt;&gt;&gt; maze</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        &gt;&gt;&gt; maze.is_cell(0,0,&#39;N&#39;)</span>
+<span class="sd">        False</span>
+<span class="sd">        &gt;&gt;&gt; maze.is_cell(0,0,&#39;S&#39;)</span>
+<span class="sd">        True</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">if</span> <span class="n">x</span><span class="o">==</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">wall</span><span class="o">==</span><span class="s1">&#39;N&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="n">x</span><span class="o">==</span><span class="bp">self</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">wall</span><span class="o">==</span><span class="s1">&#39;S&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="n">y</span><span class="o">==</span><span class="bp">self</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span> <span class="ow">and</span> <span class="n">wall</span><span class="o">==</span><span class="s1">&#39;E&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">elif</span> <span class="n">y</span><span class="o">==</span><span class="mi">0</span> <span class="ow">and</span> <span class="n">wall</span><span class="o">==</span><span class="s1">&#39;W&#39;</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">True</span></div>
+
+<div class="viewcode-block" id="Maze.dest_wall"><a class="viewcode-back" href="../maze.html#maze.Maze.dest_wall">[docs]</a>    <span class="k">def</span> <span class="nf">dest_wall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">wall</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Destroy the wall in the maze described by x,y and wall</span>
+<span class="sd">        </span>
+<span class="sd">        :return: none</span>
+<span class="sd">        :param x:</span>
+<span class="sd">        :type x: int</span>
+<span class="sd">        :param y:</span>
+<span class="sd">        :type y: int</span>
+<span class="sd">        :param wall:</span>
+<span class="sd">        :type wall: str</span>
+<span class="sd">        :UC: x,y &lt; width,height; wall ==&#39;N&#39; or &#39;S&#39; or &#39;W&#39; or &#39;E&#39;</span>
+<span class="sd">        :Examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; maze=Maze(4,5)</span>
+<span class="sd">        &gt;&gt;&gt; maze</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        &gt;&gt;&gt; maze.dest_wall(0,0,&#39;S&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; maze</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        + +-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">destroy_wall</span><span class="p">(</span><span class="n">wall</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_cell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">wall</span><span class="p">)</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">wall</span><span class="o">==</span><span class="s1">&#39;N&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">destroy_wall</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">wall</span><span class="o">==</span><span class="s1">&#39;S&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">destroy_wall</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">wall</span><span class="o">==</span><span class="s1">&#39;E&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">destroy_wall</span><span class="p">(</span><span class="s1">&#39;W&#39;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">wall</span><span class="o">==</span><span class="s1">&#39;W&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">destroy_wall</span><span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">)</span></div>
+         
+
+
+<div class="viewcode-block" id="Maze.ad_wall"><a class="viewcode-back" href="../maze.html#maze.Maze.ad_wall">[docs]</a>    <span class="k">def</span> <span class="nf">ad_wall</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">wall</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Build the wall in the maze described by x,y and wall</span>
+<span class="sd">        </span>
+<span class="sd">        :return: none</span>
+<span class="sd">        :param x:</span>
+<span class="sd">        :type x: int</span>
+<span class="sd">        :param y:</span>
+<span class="sd">        :type y: int</span>
+<span class="sd">        :param wall:</span>
+<span class="sd">        :type wall: str</span>
+<span class="sd">        :UC: x,y &lt; width,height; wall ==&#39;N&#39; or &#39;S&#39; or &#39;W&#39; or &#39;E&#39;</span>
+<span class="sd">        :Examples:</span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; maze=Maze(4,5)</span>
+<span class="sd">        &gt;&gt;&gt; maze</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        &gt;&gt;&gt; maze.dest_wall(0,0,&#39;S&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; maze</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        + +-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        &gt;&gt;&gt; maze.ad_wall(0,0,&#39;S&#39;)</span>
+<span class="sd">        &gt;&gt;&gt; maze</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        | | | | |</span>
+<span class="sd">        +-+-+-+-+</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">add_wall</span><span class="p">(</span><span class="n">wall</span><span class="p">)</span>
+        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_cell</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">wall</span><span class="p">)</span><span class="o">==</span><span class="kc">True</span><span class="p">:</span>
+            <span class="k">if</span> <span class="n">wall</span><span class="o">==</span><span class="s1">&#39;N&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">y</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">add_wall</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">wall</span><span class="o">==</span><span class="s1">&#39;S&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">y</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">x</span><span class="p">]</span><span class="o">.</span><span class="n">add_wall</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">wall</span><span class="o">==</span><span class="s1">&#39;E&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">add_wall</span><span class="p">(</span><span class="s1">&#39;W&#39;</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">wall</span><span class="o">==</span><span class="s1">&#39;W&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">y</span><span class="p">][</span><span class="n">x</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">add_wall</span><span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">)</span></div>
+
+                    
+<div class="viewcode-block" id="Maze.draw_by_yourself"><a class="viewcode-back" href="../maze.html#maze.Maze.draw_by_yourself">[docs]</a>    <span class="k">def</span> <span class="nf">draw_by_yourself</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        A function that let you to draw your own maze by destroying or adding walls.</span>
+<span class="sd">        </span>
+<span class="sd">        :UC: None </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        
+        <span class="n">res</span> <span class="o">=</span> <span class="kc">False</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="n">res</span> <span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+            <span class="n">s</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;You choose x,y,B,W,Y/N (B=(D)estroy,(A)dd) (W=(N)orth,(S)outh,(W)est,(E)ast)(Finished:(Y)es or (N)o) : &#39;</span><span class="p">)</span>
+            <span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">B</span><span class="p">,</span><span class="n">W</span><span class="p">,</span><span class="n">F</span> <span class="o">=</span> <span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;,&quot;</span><span class="p">)</span>
+            <span class="n">x</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+            <span class="n">y</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">y</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">B</span> <span class="o">==</span> <span class="s1">&#39;D&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">dest_wall</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">W</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="k">elif</span> <span class="n">B</span> <span class="o">==</span> <span class="s1">&#39;A&#39;</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">ad_wall</span><span class="p">(</span><span class="n">x</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">W</span><span class="p">)</span>
+                <span class="nb">print</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="k">if</span> <span class="n">F</span> <span class="o">==</span> <span class="s1">&#39;Y&#39;</span> <span class="p">:</span>
+                <span class="n">res</span> <span class="o">=</span> <span class="kc">True</span></div>
+            
+
+<div class="viewcode-block" id="Maze.is_finished"><a class="viewcode-back" href="../maze.html#maze.Maze.is_finished">[docs]</a>    <span class="k">def</span> <span class="nf">is_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        Tells you whenever the maze is finished or not</span>
+<span class="sd">        </span>
+<span class="sd">        :rtype: boolean</span>
+<span class="sd">        :UC: None</span>
+<span class="sd">        :Examples:</span>
+<span class="sd">        </span>
+<span class="sd">        &gt;&gt;&gt; Maze(5,5).is_finished()</span>
+<span class="sd">        False</span>
+<span class="sd">        &gt;&gt;&gt; Maze(5,5).create_perfect_maze().is_finished()</span>
+<span class="sd">        True</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="n">e</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_height</span><span class="p">()):</span>
+            <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_width</span><span class="p">()):</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span><span class="o">!=</span><span class="n">e</span><span class="p">:</span>
+                    <span class="k">return</span> <span class="kc">False</span>
+        <span class="k">return</span> <span class="kc">True</span></div>
+                
+<div class="viewcode-block" id="Maze.create_perfect_maze"><a class="viewcode-back" href="../maze.html#maze.Maze.create_perfect_maze">[docs]</a>    <span class="k">def</span> <span class="nf">create_perfect_maze</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        return a perfect maze crated randomly</span>
+<span class="sd">        </span>
+<span class="sd">        :rtype: Maze</span>
+<span class="sd">        :UC: None</span>
+<span class="sd">        :Examples:</span>
+
+<span class="sd">        &gt;&gt;&gt; Maze(5,5).create_perfect_maze().is_finished()</span>
+<span class="sd">        True</span>
+<span class="sd">        </span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">while</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_finished</span><span class="p">():</span>
+            <span class="n">b</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;N&#39;</span><span class="p">,</span><span class="s1">&#39;S&#39;</span><span class="p">,</span><span class="s1">&#39;E&#39;</span><span class="p">,</span><span class="s1">&#39;W&#39;</span><span class="p">]</span>
+            <span class="n">a</span><span class="o">=</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">d</span><span class="o">=</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+            <span class="n">c</span><span class="o">=</span><span class="n">b</span><span class="p">[</span><span class="n">randint</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">3</span><span class="p">)]</span>
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">is_cell</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">c</span><span class="p">):</span>
+                <span class="k">if</span> <span class="n">c</span><span class="o">==</span><span class="s1">&#39;N&#39;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span><span class="o">!=</span><span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">a</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">dest_wall</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+                    <span class="n">e</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_height</span><span class="p">()):</span>
+                        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_width</span><span class="p">()):</span>
+                            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span><span class="o">==</span><span class="n">e</span><span class="p">:</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">change_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">a</span><span class="o">-</span><span class="mi">1</span><span class="p">][</span><span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">())</span>
+                <span class="k">elif</span> <span class="n">c</span><span class="o">==</span><span class="s1">&#39;S&#39;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span><span class="o">!=</span><span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">a</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">dest_wall</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+                    <span class="n">e</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_height</span><span class="p">()):</span>
+                        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_width</span><span class="p">()):</span>
+                            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span><span class="o">==</span><span class="n">e</span><span class="p">:</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">change_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">a</span><span class="o">+</span><span class="mi">1</span><span class="p">][</span><span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">())</span>
+                <span class="k">elif</span> <span class="n">c</span><span class="o">==</span><span class="s1">&#39;W&#39;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span><span class="o">!=</span><span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="n">d</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">dest_wall</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+                    <span class="n">e</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_height</span><span class="p">()):</span>
+                        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_width</span><span class="p">()):</span>
+                            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span><span class="o">==</span><span class="n">e</span><span class="p">:</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">change_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="n">d</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">())</span>
+                <span class="k">elif</span> <span class="n">c</span><span class="o">==</span><span class="s1">&#39;E&#39;</span> <span class="ow">and</span> <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span><span class="o">!=</span><span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="n">d</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">():</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">dest_wall</span><span class="p">(</span><span class="n">d</span><span class="p">,</span><span class="n">a</span><span class="p">,</span><span class="n">c</span><span class="p">)</span>
+                    <span class="n">e</span><span class="o">=</span><span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="n">d</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span>
+                    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_height</span><span class="p">()):</span>
+                        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_width</span><span class="p">()):</span>
+                            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">()</span><span class="o">==</span><span class="n">e</span><span class="p">:</span>
+                                <span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">.</span><span class="n">change_value</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">a</span><span class="p">][</span><span class="n">d</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">get_value</span><span class="p">())</span>
+        <span class="k">return</span> <span class="bp">self</span> </div>
+
+
+
+<div class="viewcode-block" id="Maze.find_a_road"><a class="viewcode-back" href="../maze.html#maze.Maze.find_a_road">[docs]</a>    <span class="k">def</span> <span class="nf">find_a_road</span><span class="p">(</span><span class="bp">self</span> <span class="p">,</span> <span class="n">x1</span> <span class="p">,</span> <span class="n">y1</span> <span class="p">,</span> <span class="n">x2</span> <span class="p">,</span> <span class="n">y2</span><span class="p">)</span> <span class="p">:</span>
+            <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">            return a list of coordonates of cells leading from the Cell defined by x1 and y1 to the Cell defined by x2 and y2</span>
+<span class="sd">            </span>
+<span class="sd">            :param x1:</span>
+<span class="sd">            :type x1: int</span>
+<span class="sd">            :param y1:</span>
+<span class="sd">            :type y1: int</span>
+<span class="sd">            :param x2:</span>
+<span class="sd">            :type x2: int</span>
+<span class="sd">            :param y2:</span>
+<span class="sd">            :type y2: int</span>
+<span class="sd">            :UC: x1,y1,x2,y2 &lt; width,height,width,height</span>
+<span class="sd">            &quot;&quot;&quot;</span>
+            <span class="n">road</span><span class="o">=</span><span class="p">[]</span>
+            <span class="n">copy</span><span class="o">=</span> <span class="n">deepcopy</span><span class="p">(</span><span class="bp">self</span><span class="p">)</span>
+            <span class="k">while</span> <span class="n">x1</span><span class="o">!=</span><span class="n">x2</span> <span class="ow">or</span> <span class="n">y1</span><span class="o">!=</span><span class="n">y2</span><span class="p">:</span>
+                <span class="n">road</span><span class="o">+=</span><span class="p">[(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">)]</span>
+                <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">copy</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">y1</span><span class="p">][</span><span class="n">x1</span><span class="p">]</span><span class="o">.</span><span class="n">test_wall</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">))</span> <span class="ow">and</span> <span class="n">copy</span><span class="o">.</span><span class="n">is_cell</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="s1">&#39;N&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">road</span><span class="p">:</span>
+                    <span class="n">y1</span><span class="o">-=</span><span class="mi">1</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="ow">not</span> <span class="n">copy</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">y1</span><span class="p">][</span><span class="n">x1</span><span class="p">]</span><span class="o">.</span><span class="n">test_wall</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">))</span> <span class="ow">and</span> <span class="n">copy</span><span class="o">.</span><span class="n">is_cell</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="s1">&#39;S&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">road</span><span class="p">:</span>
+                    <span class="n">y1</span><span class="o">+=</span><span class="mi">1</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="ow">not</span> <span class="n">copy</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">y1</span><span class="p">][</span><span class="n">x1</span><span class="p">]</span><span class="o">.</span><span class="n">test_wall</span><span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">))</span> <span class="ow">and</span> <span class="n">copy</span><span class="o">.</span><span class="n">is_cell</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="s1">&#39;E&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x1</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">y1</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">road</span><span class="p">:</span>
+                    <span class="n">x1</span><span class="o">+=</span><span class="mi">1</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="ow">not</span> <span class="n">copy</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">y1</span><span class="p">][</span><span class="n">x1</span><span class="p">]</span><span class="o">.</span><span class="n">test_wall</span><span class="p">(</span><span class="s1">&#39;W&#39;</span><span class="p">))</span> <span class="ow">and</span> <span class="n">copy</span><span class="o">.</span><span class="n">is_cell</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="s1">&#39;N&#39;</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x1</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">y1</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">road</span><span class="p">:</span>
+                    <span class="n">x1</span><span class="o">-=</span><span class="mi">1</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="o">=</span><span class="n">road</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">][</span><span class="mi">0</span><span class="p">],</span><span class="n">road</span><span class="p">[</span><span class="o">-</span><span class="mi">2</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+                    <span class="n">road</span><span class="o">=</span><span class="n">road</span><span class="p">[</span><span class="mi">0</span><span class="p">:</span><span class="o">-</span><span class="mi">2</span><span class="p">]</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="n">copy</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">y1</span><span class="p">][</span><span class="n">x1</span><span class="p">]</span><span class="o">.</span><span class="n">test_wall</span><span class="p">(</span><span class="s1">&#39;N&#39;</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="o">-</span><span class="mi">1</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">road</span> <span class="p">:</span>
+                        <span class="n">copy</span><span class="o">.</span><span class="n">ad_wall</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="p">(</span><span class="ow">not</span> <span class="n">copy</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">y1</span><span class="p">][</span><span class="n">x1</span><span class="p">]</span><span class="o">.</span><span class="n">test_wall</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">road</span> <span class="p">:</span>
+                        <span class="n">copy</span><span class="o">.</span><span class="n">ad_wall</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="s1">&#39;S&#39;</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="p">(</span><span class="ow">not</span> <span class="n">copy</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">y1</span><span class="p">][</span><span class="n">x1</span><span class="p">]</span><span class="o">.</span><span class="n">test_wall</span><span class="p">(</span><span class="s1">&#39;E&#39;</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x1</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">y1</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">road</span> <span class="p">:</span>
+                        <span class="n">copy</span><span class="o">.</span><span class="n">ad_wall</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="s1">&#39;E&#39;</span><span class="p">)</span>
+                    <span class="k">elif</span> <span class="p">(</span><span class="ow">not</span> <span class="n">copy</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="n">y1</span><span class="p">][</span><span class="n">x1</span><span class="p">]</span><span class="o">.</span><span class="n">test_wall</span><span class="p">(</span><span class="s1">&#39;W&#39;</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">x1</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">y1</span><span class="p">)</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">road</span> <span class="p">:</span>
+                        <span class="n">copy</span><span class="o">.</span><span class="n">ad_wall</span><span class="p">(</span><span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="s1">&#39;W&#39;</span><span class="p">)</span>
+            <span class="n">road</span><span class="o">+=</span><span class="p">[(</span><span class="n">x2</span><span class="p">,</span><span class="n">y2</span><span class="p">)]</span>
+            
+            <span class="k">return</span> <span class="n">road</span></div>
+                         
+
+<div class="viewcode-block" id="Maze.write2text_file"><a class="viewcode-back" href="../maze.html#maze.Maze.write2text_file">[docs]</a>    <span class="k">def</span> <span class="nf">write2text_file</span><span class="p">(</span><span class="bp">self</span> <span class="p">,</span> <span class="n">out_filename</span><span class="p">)</span> <span class="p">:</span>
+        <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">        create a outfile with a description of the Maze with his height and width</span>
+
+<span class="sd">        :param out_filename: the name of the file that&#39;ll be created</span>
+<span class="sd">        :type out_filename: str</span>
+<span class="sd">        :UC: None</span>
+<span class="sd">        &quot;&quot;&quot;</span>
+        <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">out_filename</span> <span class="p">,</span> <span class="s1">&#39;w&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span> <span class="p">:</span>
+            <span class="n">file</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_height</span><span class="p">())</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_width</span><span class="p">())</span> <span class="o">+</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__repr__</span><span class="p">())</span></div></div>
+        
+<span class="k">def</span> <span class="nf">usage</span><span class="p">()</span> <span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;Usage in terminal :pyton3 </span><span class="si">{}</span><span class="s2"> x y -&gt; create a maze with x in width and y in heigth&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2"> x and y must be positive int&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;Usage in terminal :pyton3 </span><span class="si">{}</span><span class="s2"> x y perfect -&gt; create perfect maze with x in width and y in heigth&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2"> x and y must be positive int&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1"> if F : Usage : Choose the coordonnates : x1,y1,x2,y2&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1"> </span><span class="se">\t</span><span class="s1"> x1,x2 &lt; x and y1,y2 &lt; y&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1"> if W : Usage : Name of the file you want to create : filename.txt&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1"> </span><span class="se">\t</span><span class="s1"> Your filename must finish by .txt&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Usage in terminal :python3 </span><span class="si">{}</span><span class="s1"> x y draw -&gt; create a maze with x in width and y in heigth&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2"> x and y must be positive int&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You choose x1,y1,B,W,Y/N&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2"> x1 and y1 must be positive int and x1 &lt; x , y1 &lt; y&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1"> B must be A or D and W must be N , S , W or E&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1"> There must be 5 parameter after You choose x1,y1,B,W,Y/N... :&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+
+<span class="k">def</span> <span class="nf">usage1</span><span class="p">():</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;Usage in terminal :pyton3 </span><span class="si">{}</span><span class="s2"> x y -&gt; create a maze with x in width and y in heigth&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2"> x and y must be positive int&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">usage2</span><span class="p">()</span> <span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="nb">print</span><span class="p">(</span> <span class="s2">&quot;Usage in terminal :pyton3 </span><span class="si">{}</span><span class="s2"> x y perfect -&gt; create perfect maze with x in width and y in heigth&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2"> x and y must be positive int&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1"> if F : Usage : Choose the coordonnates : x1,y1,x2,y2&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1"> </span><span class="se">\t</span><span class="s1"> x1,x2 &lt; x and y1,y2 &lt; y&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1"> if W : Usage : Name of the file you want to create : filename.txt&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1"> </span><span class="se">\t</span><span class="s1"> Your filename must finish by .txt&#39;</span><span class="p">)</span>
+
+<span class="k">def</span> <span class="nf">usage3</span><span class="p">()</span> <span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Usage in terminal :python3 </span><span class="si">{}</span><span class="s1"> x y draw -&gt; create a maze with x in width and y in heigth&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2"> x and y must be positive int&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You choose x1,y1,B,W,Y/N&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\t</span><span class="s2"> x1 and y1 must be positive int and x1 &lt; x , y1 &lt; y&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1"> B must be A or D and W must be N , S , W or E&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\t</span><span class="s1"> There must be 5 parameter after You choose x1,y1,B,W,Y/N... :&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
+    
+<span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="p">:</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">3</span> <span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">maze</span><span class="o">=</span><span class="n">Maze</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span><span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">maze</span><span class="p">)</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">usage1</span><span class="p">()</span>
+            
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span><span class="o">==</span><span class="mi">4</span> <span class="ow">and</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;perfect&#39;</span><span class="p">:</span>
+        <span class="n">a</span><span class="o">=</span><span class="mi">0</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">maze</span><span class="o">=</span><span class="n">Maze</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span><span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span><span class="o">.</span><span class="n">create_perfect_maze</span><span class="p">()</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">maze</span><span class="p">)</span>
+            <span class="k">while</span><span class="p">(</span><span class="n">a</span><span class="o">==</span><span class="mi">0</span><span class="p">):</span>
+                <span class="n">i</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;You can (F)ind a road, (W)rite your maze in a file or (S)top : &#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="s1">&#39;F&#39;</span> <span class="p">:</span>
+                    <span class="n">g</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Choose the coordonnates : &#39;</span><span class="p">)</span>
+                    <span class="n">x1</span><span class="p">,</span><span class="n">y1</span><span class="p">,</span><span class="n">x2</span><span class="p">,</span><span class="n">y2</span> <span class="o">=</span> <span class="n">g</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;,&#39;</span><span class="p">)</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="n">maze</span><span class="o">.</span><span class="n">find_a_road</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">x1</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y1</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">x2</span><span class="p">),</span><span class="nb">int</span><span class="p">(</span><span class="n">y2</span><span class="p">)))</span>
+                
+                <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="s1">&#39;W&#39;</span><span class="p">:</span>
+                    <span class="n">p</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Name of the file you want to create : &#39;</span><span class="p">)</span>
+                    <span class="n">maze</span><span class="o">.</span><span class="n">write2text_file</span><span class="p">(</span><span class="n">p</span><span class="p">)</span>
+                <span class="k">elif</span> <span class="n">i</span> <span class="o">==</span> <span class="s1">&#39;S&#39;</span><span class="p">:</span>
+                    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Finish&#39;</span><span class="p">)</span>
+                    <span class="n">a</span><span class="o">=</span><span class="mi">1</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">usage2</span><span class="p">()</span>
+            <span class="n">main</span><span class="p">()</span>
+    
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span><span class="o">==</span><span class="mi">4</span> <span class="ow">and</span> <span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">3</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;draw&#39;</span><span class="p">:</span>
+        <span class="k">try</span><span class="p">:</span>
+            <span class="n">maze</span><span class="o">=</span><span class="n">Maze</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">1</span><span class="p">]),</span><span class="nb">int</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">[</span><span class="mi">2</span><span class="p">]))</span>
+            <span class="nb">print</span><span class="p">(</span><span class="n">maze</span><span class="p">)</span>
+            <span class="n">maze</span><span class="o">.</span><span class="n">draw_by_yourself</span><span class="p">()</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="n">usage3</span><span class="p">()</span>
+            
+    <span class="k">else</span><span class="p">:</span>
+        <span class="n">usage</span><span class="p">()</span>
+
+  
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>   
+                   
+
+
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo_dept_info.jpg" alt="Logo"/>
+            </a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Module Maze 0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Jouniau Jules, Debachy Alexandre, Bivolarov Stoyan, Univ. Lille1.
+      Last updated on 12/12/2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>

@@ -1,0 +1,175 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>from_text2laby &#8212; Module Maze 0 documentation</title>
+    <link rel="stylesheet" href="../_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    '../',
+        VERSION:     '0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="../_static/jquery.js"></script>
+    <script type="text/javascript" src="../_static/underscore.js"></script>
+    <script type="text/javascript" src="../_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Module Maze 0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" accesskey="U">Module code</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <h1>Source code for from_text2laby</h1><div class="highlight"><pre>
+<span></span><span class="ch">#!/usr/bin/python3</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="sd">:author: ` Jouniau,Debachy,Bivolarov </span>
+<span class="sd">         </span>
+
+<span class="sd">:date: 2018, december</span>
+
+<span class="sd">&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">cell</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">from</span> <span class="nn">maze</span> <span class="k">import</span> <span class="o">*</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+
+<div class="viewcode-block" id="from_text2laby"><a class="viewcode-back" href="../from_text2laby.html#from_text2laby.from_text2laby">[docs]</a><span class="k">def</span> <span class="nf">from_text2laby</span><span class="p">(</span><span class="n">file</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    return the maze created from the path of the maze described in the file</span>
+
+<span class="sd">    :return: a maze</span>
+<span class="sd">    :rtype: Maze</span>
+<span class="sd">    :UC: The name of the file must exist</span>
+<span class="sd">    :Examples:</span>
+<span class="sd">    </span>
+<span class="sd">    &gt;&gt;&gt; from_text2laby(&quot;maze_5_5_0.txt&quot;)</span>
+<span class="sd">    +-+-+-+-+-+</span>
+<span class="sd">    |       | |</span>
+<span class="sd">    + + +-+-+ +</span>
+<span class="sd">    | |   |   |</span>
+<span class="sd">    + +-+ + +-+</span>
+<span class="sd">    |   | |   |</span>
+<span class="sd">    +-+ +-+ +-+</span>
+<span class="sd">    |     | | |</span>
+<span class="sd">    +-+ + + + +</span>
+<span class="sd">    |   |     |</span>
+<span class="sd">    +-+-+-+-+-+</span>
+<span class="sd">    &gt;&gt;&gt; from_text2laby(&quot;maze_6_4_1.txt&quot;)</span>
+<span class="sd">    +-+-+-+-+-+-+</span>
+<span class="sd">    | |   |   | |</span>
+<span class="sd">    + +-+ +-+ + +</span>
+<span class="sd">    | |   | |   |</span>
+<span class="sd">    + + +-+ +-+ +</span>
+<span class="sd">    |         | |</span>
+<span class="sd">    + +-+ + + + +</span>
+<span class="sd">    | |   | |   |</span>
+<span class="sd">    +-+-+-+-+-+-+</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">file</span><span class="o">=</span><span class="s1">&#39;../mazes/&#39;</span><span class="o">+</span><span class="n">file</span>
+    <span class="n">r</span><span class="o">=</span><span class="nb">open</span><span class="p">(</span><span class="n">file</span><span class="p">,</span><span class="s1">&#39;r&#39;</span><span class="p">)</span>
+    <span class="n">w</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
+    <span class="n">h</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="n">r</span><span class="o">.</span><span class="n">readline</span><span class="p">())</span>
+    <span class="n">maze</span><span class="o">=</span><span class="n">Maze</span><span class="p">(</span><span class="n">w</span><span class="p">,</span><span class="n">h</span><span class="p">)</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">h</span><span class="p">):</span>
+        <span class="n">a</span><span class="o">=</span><span class="n">r</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">y</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">y</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;+ &#39;</span><span class="p">:</span>
+                <span class="n">maze</span><span class="o">.</span><span class="n">dest_wall</span><span class="p">(</span><span class="n">y</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+        <span class="n">a</span><span class="o">=</span><span class="n">r</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">j</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">j</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;  &#39;</span><span class="p">:</span>
+                <span class="n">maze</span><span class="o">.</span><span class="n">dest_wall</span><span class="p">(</span><span class="n">j</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="s1">&#39;W&#39;</span><span class="p">)</span>
+        <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">w</span><span class="o">+</span><span class="mi">1</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39; &#39;</span><span class="p">:</span>
+            <span class="n">maze</span><span class="o">.</span><span class="n">dest_wall</span><span class="p">(</span><span class="n">w</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="s1">&#39;E&#39;</span><span class="p">)</span>
+    <span class="n">a</span><span class="o">=</span><span class="n">r</span><span class="o">.</span><span class="n">readline</span><span class="p">()</span>
+    <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">w</span><span class="p">):</span>
+        <span class="k">if</span> <span class="n">a</span><span class="p">[</span><span class="mi">2</span><span class="o">*</span><span class="n">k</span><span class="p">:</span><span class="mi">2</span><span class="o">*</span><span class="n">k</span><span class="o">+</span><span class="mi">2</span><span class="p">]</span><span class="o">==</span><span class="s1">&#39;+ &#39;</span><span class="p">:</span>
+            <span class="n">maze</span><span class="o">.</span><span class="n">dest_wall</span><span class="p">(</span><span class="n">k</span><span class="p">,</span><span class="n">h</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="s1">&#39;S&#39;</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">maze</span></div>
+
+<span class="k">def</span> <span class="nf">usage</span><span class="p">()</span> <span class="p">:</span>
+    <span class="nb">print</span><span class="p">()</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Usage for the terminal : This module helps us for the creating a maze from text file .&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Here how to use it : Once execute the program , you will see something like this : &quot;Choose the file name :&quot; .&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You choose the file name and you will see the representation of the maze .&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;You can start using it now .&#39;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">()</span>
+
+<span class="k">def</span> <span class="nf">main</span><span class="p">()</span> <span class="p">:</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span> <span class="p">:</span>
+        <span class="n">usage</span><span class="p">()</span>
+        <span class="n">g</span> <span class="o">=</span> <span class="nb">input</span><span class="p">(</span><span class="s1">&#39;Choose the text file : &#39;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="n">from_text2laby</span><span class="p">(</span><span class="n">g</span><span class="p">))</span>
+    <span class="k">else</span> <span class="p">:</span>
+        <span class="n">usage</span><span class="p">()</span>
+
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">main</span><span class="p">()</span>
+                   
+</pre></div>
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="../index.html">
+              <img class="logo" src="../_static/logo_dept_info.jpg" alt="Logo"/>
+            </a></p>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="../search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="../genindex.html" title="General Index"
+             >index</a></li>
+        <li class="nav-item nav-item-0"><a href="../index.html">Module Maze 0 documentation</a> &#187;</li>
+          <li class="nav-item nav-item-1"><a href="index.html" >Module code</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Jouniau Jules, Debachy Alexandre, Bivolarov Stoyan, Univ. Lille1.
+      Last updated on 12/12/2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>

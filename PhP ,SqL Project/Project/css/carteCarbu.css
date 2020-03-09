@@ -1,0 +1,414 @@
+#cartecampus {
+                width : 400px;
+                height : 300px;
+                margin-left:0;
+                margin-right:0;
+            }
+
+
+#notfound{
+  color: black;
+  background-color:  yellow ;
+  position: absolute;
+  top : 0px;
+  left : 20px;
+  padding: 4px 4px 4px 32px;
+  background-position: top 3px left 9px;
+  background-image: url("https://image.flaticon.com/icons/svg/272/272289.svg");
+  background-repeat: no-repeat;
+  background-size: 20px;
+  animation: Test 2s infinite;
+
+}
+
+#rejected{
+  color: black;
+  background-color:  yellow ;
+  position: absolute;
+  top : 0px;
+  left : 20px;
+  padding: 4px 4px 4px 32px;
+
+  background-position: top 3px left 9px;
+  background-image: url("https://image.flaticon.com/icons/svg/272/272289.svg");
+  background-repeat: no-repeat;
+  background-size: 20px;
+  animation: Test 2s infinite;
+
+
+}
+@keyframes Test{
+    0%{opacity: 1;color:#ff4d4d;}
+    50%{opacity: 0;color:#ff1a1a;}
+    100%{opacity: 1;color:red;}
+}
+
+
+
+body{
+  background-color: #0099ff;
+  padding-bottom: 50%;
+}
+
+h1{
+  color: #fff;
+  font-family: Freestyle Script;
+  text-decoration: underline overline;
+  text-align: center;
+  font-size: 30px;
+}
+p{
+  font-family: Bahnschrift SemiCondensed;
+  color: white;
+  background-color: blue;
+  margin-right: 1100px;
+  padding: 4px ;
+  text-align: center;
+}
+
+fieldset{
+  background-color: white;
+  background-clip: border-box;
+  border: solid 10px #ccc;
+  border-radius: 100px;
+  margin: 0px 0px 15px 0px;
+  padding-bottom: 70px;
+
+}
+
+
+legend{
+  text-align:center;
+  font-family: Bahnschrift SemiCondensed;
+  font-size:  25px;
+  font-style: italic;
+
+}
+
+label{
+  font-family: Bahnschrift SemiCondensed;
+}
+
+label#com{
+  text-align: center;
+  margin-left: 30px;
+  position: absolute;
+  left: 32.5%;
+  top : 22.5%;
+}
+
+label#ray{
+  text-align: center;
+  margin-left: 40px;
+  position: absolute;
+  left : 46%;
+  top : 22.5%;
+}
+
+ input#commune[type=text] {
+
+ width: 130px;
+ box-sizing: border-box;
+ border: 2px solid #ccc;
+ border-radius: 30px;
+ font-size: 12px;
+ background-color: white;
+ background-position: top 9px left 9px;
+ padding: 12px 0px 12px 32px;
+ -webkit-transition : transform 0.4s ;
+
+ position: absolute;
+ left : 32.5%;
+ top : 25.5%;
+ background-image: url("https://image.flaticon.com/icons/svg/484/484167.svg");
+ background-repeat: no-repeat;
+ background-size: 20px;
+}
+
+            input#commune[type=text]:hover {
+              -webkit-transform: scale(1.2);
+              -ms-transform: scale(1.2);
+              transform: scale(1.2);
+              background-color: #f2f2f2;
+            }
+
+            input#rayon[type=text] {
+
+              width: 130px;
+              box-sizing: border-box;
+              border: 2px solid #ccc;
+              border-radius: 30px;
+              font-size: 12px;
+              background-color: white ;
+              background-position: top 9px left 9px;
+              padding:  12px 0px 12px 34px;
+              -webkit-transition : transform 0.4s ;
+
+              background-image: url("https://image.flaticon.com/icons/svg/149/149769.svg");
+              background-repeat: no-repeat;
+              background-size: 20px;
+
+              position: absolute;
+              left : 45.7%;
+              top : 25.5%;
+            }
+
+            input#rayon[type=text]:hover {
+              -webkit-transform: scale(1.2);
+              -ms-transform: scale(1.2);
+              transform: scale(1.2);
+              background-color: #f2f2f2;
+            }
+
+            button.recherche{
+              position: absolute;
+              left : 47%;
+              top : 35%;
+              border-radius: 15px;
+              padding: 12px 12px 12px 12px;
+
+            }
+
+            div#cartecampus{
+              position: absolute;
+              left: 38%;
+              border-radius: 30px;
+            }
+
+            table#communes>thead>tr>th{
+              color: white;
+              font-family: Bahnschrift SemiCondensed;
+              text-decoration: underline;
+              height: 50px;
+              background-color: white;
+              padding-left: 180px;
+
+            }
+
+            div#demo{
+              font-family: Bahnschrift SemiCondensed;
+              color: white;
+            }
+            .carburants {
+              width: 200px;
+              position: absolute;
+              left: 59%;
+              top : 25.5%;
+              -webkit-transition : transform 0.4s ;
+            }
+
+            .selectBox {
+              position: relative;
+              -webkit-transition : transform 0.4s ;
+            }
+
+            .selectBox select {
+              width: 100%;
+              font-weight: bold;
+            }
+
+            .overSelect {
+              position: absolute;
+              left: 0;
+              right: 0;
+              top: 0;
+              bottom: 0;
+            }
+
+            #checkboxes {
+              display: none;
+              border: 1px #dadada solid;
+              border-radius: 6px;
+              background-color: #ccc;
+            }
+
+            #checkboxes label {
+              display: block;
+            }
+
+            #checkboxes label:hover {
+              background-color: #1e90ff;
+            }
+
+            select{
+                border-radius: 30px;
+                border : 2px solid #ccc;
+                font-family: Bahnschrift SemiCondensed;
+                font-size: 14px;
+                padding: 10px 0px 10px 10px;
+            }
+
+            .carburants:hover{
+              -webkit-transform: scale(1.1);
+              -ms-transform: scale(1.1);
+              transform: scale(1.1);
+              background-color: #f2f2f2;
+
+            }
+            .selectBox:hover{
+              -webkit-transform: scale(1.1);
+              -ms-transform: scale(1.1);
+              transform: scale(1.1);
+            }
+
+            input[type="checkbox"]{
+              cursor: pointer;
+              -webkit-transform: scale(1.5);
+
+            }
+
+            div#checkboxes label{
+              padding : 3px 4px 0px 3px;
+            }
+
+
+
+
+#infos{
+  border-radius: 33px;
+  text-align:  center;
+  font-family:  "Fira Sans", sans-serif;
+  font-size: 65%;
+  padding: 2% 2% 0% 2%;
+  background-color: whiteSmoke;
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+
+  position: absolute;
+  top: 60%;
+  right : 10%;
+  width: 20%;
+  height: 22%;
+  visibility: hidden;
+}
+
+#avis{
+  border-radius: 33px;
+  text-align:  center;
+  font-family:  "Fira Sans", sans-serif;
+  font-size: 75%;
+  padding: 1% 1% 0% 1%;
+  background-color: whiteSmoke;
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+
+  position: absolute;
+  top: 90%;
+  right: 15%;
+  width: 10%;
+  height: 12%;
+  visibility: hidden;
+}
+
+#posts{
+  position: absolute;
+  top: 60%;
+  visibility: hidden;
+
+}
+
+#all_posts{
+  width: 400px;
+  height: 200px;
+  overflow: auto;
+
+  position: absolute;
+  top: 70%;
+  left: 2%;
+  background-color: whiteSmoke;
+  visibility: hidden;
+
+  border-radius: 25px;
+  padding: 1% 1% 0% 1%;
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+}
+#rech{
+  border: solid black;
+  border-radius: 100px;
+  background-color: white;
+  padding: 4px 200px 8px 200px;
+  margin-left: 100px;
+  margin-right: 100px;
+}
+
+form#lesposts{
+  border-color: white;
+  border: 1px solid black;
+  border-radius: 0px;
+  background-color: white;
+  padding: 0px;
+  margin-left: 0px;
+  margin-right: 0px;
+
+}
+
+fieldset#field{
+  background-color: white;
+  background-clip: initial;
+  border: 1px solid black;
+  border-radius: 0px;
+  margin: 0px;
+  padding-bottom: 0px;
+}
+legend#leg{
+  text-align: inherit;
+  font-family: inherit;
+  font-size: initial;
+  font-style:normal;
+
+}
+
+p#p{
+  font-family: inherit;
+  color: inherit;
+  background-color: inherit;
+  margin-right: 0;
+  padding: 0px;
+  text-align: inherit;
+}
+p#p2{
+  font-family: inherit;
+  color: inherit;
+  background-color: inherit;
+  margin-right: 0;
+  padding: 0px;
+  text-align: inherit;
+}
+
+
+form#avis_station{
+  position: absolute;
+  top: 120%;
+  left: 2%;
+  background-color: whiteSmoke;
+  border-radius: 33px;
+  height: 200px;
+  width: 400px;
+  padding-left: 2%;
+  padding-top: 1%;
+  visibility: hidden;
+}
+
+form#comment.comment{
+  position: absolute;
+  top: 120%;
+  right: 15%;
+  background-color: whiteSmoke;
+  border-radius: 33px;
+  height: 200px;
+  width: 500px;
+  padding-left: 2%;
+  padding-top: 1%;
+  padding-right: 2%;
+  visibility: hidden;
+}
+
+div#myForm{
+  position: absolute;
+  top: 110%;
+  left: 10%;
+}
+
+div#jeposte{
+  position: absolute;
+  top: 110%;
+  right: 30%;
+}

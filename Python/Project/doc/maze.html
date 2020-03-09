@@ -1,0 +1,528 @@
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+  "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>maze module &#8212; Module Maze 0 documentation</title>
+    <link rel="stylesheet" href="_static/nature.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript">
+      var DOCUMENTATION_OPTIONS = {
+        URL_ROOT:    './',
+        VERSION:     '0',
+        COLLAPSE_INDEX: false,
+        FILE_SUFFIX: '.html',
+        HAS_SOURCE:  true,
+        SOURCELINK_SUFFIX: '.txt'
+      };
+    </script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Graphical" href="graphical.html" />
+    <link rel="prev" title="cell module" href="cell.html" /> 
+  </head>
+  <body>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             accesskey="I">index</a></li>
+        <li class="right" >
+          <a href="graphical.html" title="Graphical"
+             accesskey="N">next</a> |</li>
+        <li class="right" >
+          <a href="cell.html" title="cell module"
+             accesskey="P">previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Module Maze 0 documentation</a> &#187;</li> 
+      </ul>
+    </div>  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          <div class="body" role="main">
+            
+  <div class="section" id="maze-module">
+<h1><code class="xref py py-mod docutils literal"><span class="pre">maze</span></code> module<a class="headerlink" href="#maze-module" title="Permalink to this headline">¶</a></h1>
+<p>Class for creating maze</p>
+<div class="section" id="class-description">
+<h2>Class description<a class="headerlink" href="#class-description" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="the-class-maze">
+<h3>The class <code class="xref py py-class docutils literal"><span class="pre">Maze</span></code><a class="headerlink" href="#the-class-maze" title="Permalink to this headline">¶</a></h3>
+<dl class="class">
+<dt id="maze.Maze">
+<em class="property">class </em><code class="descclassname">maze.</code><code class="descname">Maze</code><span class="sig-paren">(</span><em>width</em>, <em>height</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/maze.html#Maze"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maze.Maze" title="Permalink to this definition">¶</a></dt>
+<dd><p>class for mazes</p>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span><span class="o">=</span><span class="n">Maze</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+<span class="go">5</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span>
+<span class="go">4</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span><span class="o">.</span><span class="n">is_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span><span class="o">.</span><span class="n">is_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;S&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span><span class="o">.</span><span class="n">dest_wall</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;S&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+ +-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">test_wall</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span><span class="o">.</span><span class="n">ad_wall</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;S&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span><span class="o">.</span><span class="n">maze_cell</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">test_wall</span><span class="p">(</span><span class="s1">&#39;S&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span><span class="o">.</span><span class="n">is_finished</span><span class="p">()</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Maze</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">create_perfect_maze</span><span class="p">()</span><span class="o">.</span><span class="n">is_finished</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<div class="section" id="methods">
+<h4>Methods<a class="headerlink" href="#methods" title="Permalink to this headline">¶</a></h4>
+<div class="section" id="getters">
+<h5>Getters<a class="headerlink" href="#getters" title="Permalink to this headline">¶</a></h5>
+<dl class="method">
+<dt id="maze.Maze.get_width">
+<code class="descclassname">Maze.</code><code class="descname">get_width</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/maze.html#Maze.get_width"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maze.Maze.get_width" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the width of the maze</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the width of self</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">UC:</th><td class="field-body">None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span><span class="o">=</span><span class="n">Maze</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span><span class="o">.</span><span class="n">get_width</span><span class="p">()</span>
+<span class="go">5</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="maze.Maze.get_height">
+<code class="descclassname">Maze.</code><code class="descname">get_height</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/maze.html#Maze.get_height"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maze.Maze.get_height" title="Permalink to this definition">¶</a></dt>
+<dd><p>return the height of the maze</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">the height of self</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">int</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">UC:</th><td class="field-body">None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span><span class="o">=</span><span class="n">Maze</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">8</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span><span class="o">.</span><span class="n">get_height</span><span class="p">()</span>
+<span class="go">8</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="to-text-file">
+<h5>To text file<a class="headerlink" href="#to-text-file" title="Permalink to this headline">¶</a></h5>
+<dl class="method">
+<dt id="maze.Maze.write2text_file">
+<code class="descclassname">Maze.</code><code class="descname">write2text_file</code><span class="sig-paren">(</span><em>out_filename</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/maze.html#Maze.write2text_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maze.Maze.write2text_file" title="Permalink to this definition">¶</a></dt>
+<dd><p>create a outfile with a description of the Maze with his height and width</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><strong>out_filename</strong> (<em>str</em>) – the name of the file that’ll be created</td>
+</tr>
+<tr class="field-even field"><th class="field-name">UC:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="modifier-of-maze">
+<h5>Modifier of maze<a class="headerlink" href="#modifier-of-maze" title="Permalink to this headline">¶</a></h5>
+<dl class="method">
+<dt id="maze.Maze.dest_wall">
+<code class="descclassname">Maze.</code><code class="descname">dest_wall</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>wall</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/maze.html#Maze.dest_wall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maze.Maze.dest_wall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Destroy the wall in the maze described by x,y and wall</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">none</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>int</em>) – </li>
+<li><strong>y</strong> (<em>int</em>) – </li>
+<li><strong>wall</strong> (<em>str</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">UC:</th><td class="field-body"><p class="first">x,y &lt; width,height; wall ==’N’ or ‘S’ or ‘W’ or ‘E’</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Examples:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span><span class="o">=</span><span class="n">Maze</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span><span class="o">.</span><span class="n">dest_wall</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;S&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+ +-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="maze.Maze.ad_wall">
+<code class="descclassname">Maze.</code><code class="descname">ad_wall</code><span class="sig-paren">(</span><em>x</em>, <em>y</em>, <em>wall</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/maze.html#Maze.ad_wall"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maze.Maze.ad_wall" title="Permalink to this definition">¶</a></dt>
+<dd><p>Build the wall in the maze described by x,y and wall</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body"><p class="first">none</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x</strong> (<em>int</em>) – </li>
+<li><strong>y</strong> (<em>int</em>) – </li>
+<li><strong>wall</strong> (<em>str</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">UC:</th><td class="field-body"><p class="first">x,y &lt; width,height; wall ==’N’ or ‘S’ or ‘W’ or ‘E’</p>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Examples:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span><span class="o">=</span><span class="n">Maze</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span><span class="o">.</span><span class="n">dest_wall</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;S&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+ +-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span><span class="o">.</span><span class="n">ad_wall</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;S&#39;</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="to-create-a-perfect-maze">
+<h5>To create a perfect maze<a class="headerlink" href="#to-create-a-perfect-maze" title="Permalink to this headline">¶</a></h5>
+<dl class="method">
+<dt id="maze.Maze.create_perfect_maze">
+<code class="descclassname">Maze.</code><code class="descname">create_perfect_maze</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/maze.html#Maze.create_perfect_maze"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maze.Maze.create_perfect_maze" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a perfect maze crated randomly</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body"><a class="reference internal" href="#maze.Maze" title="maze.Maze">Maze</a></td>
+</tr>
+<tr class="field-even field"><th class="field-name">UC:</th><td class="field-body">None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Examples:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Maze</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">create_perfect_maze</span><span class="p">()</span><span class="o">.</span><span class="n">is_finished</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="draw-yourself">
+<h5>Draw yourself<a class="headerlink" href="#draw-yourself" title="Permalink to this headline">¶</a></h5>
+<dl class="method">
+<dt id="maze.Maze.draw_by_yourself">
+<code class="descclassname">Maze.</code><code class="descname">draw_by_yourself</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/maze.html#Maze.draw_by_yourself"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maze.Maze.draw_by_yourself" title="Permalink to this definition">¶</a></dt>
+<dd><p>A function that let you to draw your own maze by destroying or adding walls.</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">UC:</th><td class="field-body">None</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+<div class="section" id="some-test">
+<h5>Some test<a class="headerlink" href="#some-test" title="Permalink to this headline">¶</a></h5>
+<dl class="method">
+<dt id="maze.Maze.is_cell">
+<code class="descclassname">Maze.</code><code class="descname">is_cell</code><span class="sig-paren">(</span><em>y</em>, <em>x</em>, <em>wall</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/maze.html#Maze.is_cell"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maze.Maze.is_cell" title="Permalink to this definition">¶</a></dt>
+<dd><table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Returns:</th><td class="field-body">a boolean verifying if there’s a Cell or not at this emplacement</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">UC:</th><td class="field-body">None</td>
+</tr>
+<tr class="field-even field"><th class="field-name">Example:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span><span class="o">=</span><span class="n">Maze</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="go">| | | | |</span>
+<span class="go">+-+-+-+-+</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span><span class="o">.</span><span class="n">is_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;N&#39;</span><span class="p">)</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">maze</span><span class="o">.</span><span class="n">is_cell</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;S&#39;</span><span class="p">)</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="maze.Maze.is_finished">
+<code class="descclassname">Maze.</code><code class="descname">is_finished</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="_modules/maze.html#Maze.is_finished"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maze.Maze.is_finished" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tells you whenever the maze is finished or not</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Return type:</th><td class="field-body">boolean</td>
+</tr>
+<tr class="field-even field"><th class="field-name">UC:</th><td class="field-body">None</td>
+</tr>
+<tr class="field-odd field"><th class="field-name">Examples:</th><td class="field-body"></td>
+</tr>
+</tbody>
+</table>
+<div class="highlight-default"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="n">Maze</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">is_finished</span><span class="p">()</span>
+<span class="go">False</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">Maze</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">create_perfect_maze</span><span class="p">()</span><span class="o">.</span><span class="n">is_finished</span><span class="p">()</span>
+<span class="go">True</span>
+</pre></div>
+</div>
+</dd></dl>
+
+</div>
+<div class="section" id="resolve-a-maze">
+<h5>Resolve a maze<a class="headerlink" href="#resolve-a-maze" title="Permalink to this headline">¶</a></h5>
+<dl class="method">
+<dt id="maze.Maze.find_a_road">
+<code class="descclassname">Maze.</code><code class="descname">find_a_road</code><span class="sig-paren">(</span><em>x1</em>, <em>y1</em>, <em>x2</em>, <em>y2</em><span class="sig-paren">)</span><a class="reference internal" href="_modules/maze.html#Maze.find_a_road"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#maze.Maze.find_a_road" title="Permalink to this definition">¶</a></dt>
+<dd><p>return a list of coordonates of cells leading from the Cell defined by x1 and y1 to the Cell defined by x2 and y2</p>
+<table class="docutils field-list" frame="void" rules="none">
+<col class="field-name" />
+<col class="field-body" />
+<tbody valign="top">
+<tr class="field-odd field"><th class="field-name">Parameters:</th><td class="field-body"><ul class="first simple">
+<li><strong>x1</strong> (<em>int</em>) – </li>
+<li><strong>y1</strong> (<em>int</em>) – </li>
+<li><strong>x2</strong> (<em>int</em>) – </li>
+<li><strong>y2</strong> (<em>int</em>) – </li>
+</ul>
+</td>
+</tr>
+<tr class="field-even field"><th class="field-name">UC:</th><td class="field-body"><p class="first last">x1,y1,x2,y2 &lt; width,height,width,height</p>
+</td>
+</tr>
+</tbody>
+</table>
+</dd></dl>
+
+</div>
+</div>
+</div>
+</div>
+</div>
+
+
+          </div>
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper">
+            <p class="logo"><a href="index.html">
+              <img class="logo" src="_static/logo_dept_info.jpg" alt="Logo"/>
+            </a></p>
+  <h3><a href="index.html">Table Of Contents</a></h3>
+  <ul>
+<li><a class="reference internal" href="#"><code class="docutils literal"><span class="pre">maze</span></code> module</a><ul>
+<li><a class="reference internal" href="#class-description">Class description</a><ul>
+<li><a class="reference internal" href="#the-class-maze">The class <code class="docutils literal"><span class="pre">Maze</span></code></a><ul>
+<li><a class="reference internal" href="#methods">Methods</a><ul>
+<li><a class="reference internal" href="#getters">Getters</a></li>
+<li><a class="reference internal" href="#to-text-file">To text file</a></li>
+<li><a class="reference internal" href="#modifier-of-maze">Modifier of maze</a></li>
+<li><a class="reference internal" href="#to-create-a-perfect-maze">To create a perfect maze</a></li>
+<li><a class="reference internal" href="#draw-yourself">Draw yourself</a></li>
+<li><a class="reference internal" href="#some-test">Some test</a></li>
+<li><a class="reference internal" href="#resolve-a-maze">Resolve a maze</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+  <h4>Previous topic</h4>
+  <p class="topless"><a href="cell.html"
+                        title="previous chapter"><code class="docutils literal"><span class="pre">cell</span></code> module</a></p>
+  <h4>Next topic</h4>
+  <p class="topless"><a href="graphical.html"
+                        title="next chapter">Graphical</a></p>
+  <div role="note" aria-label="source link">
+    <h3>This Page</h3>
+    <ul class="this-page-menu">
+      <li><a href="_sources/maze.rst.txt"
+            rel="nofollow">Show Source</a></li>
+    </ul>
+   </div>
+<div id="searchbox" style="display: none" role="search">
+  <h3>Quick search</h3>
+    <form class="search" action="search.html" method="get">
+      <div><input type="text" name="q" /></div>
+      <div><input type="submit" value="Go" /></div>
+      <input type="hidden" name="check_keywords" value="yes" />
+      <input type="hidden" name="area" value="default" />
+    </form>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="related" role="navigation" aria-label="related navigation">
+      <h3>Navigation</h3>
+      <ul>
+        <li class="right" style="margin-right: 10px">
+          <a href="genindex.html" title="General Index"
+             >index</a></li>
+        <li class="right" >
+          <a href="graphical.html" title="Graphical"
+             >next</a> |</li>
+        <li class="right" >
+          <a href="cell.html" title="cell module"
+             >previous</a> |</li>
+        <li class="nav-item nav-item-0"><a href="index.html">Module Maze 0 documentation</a> &#187;</li> 
+      </ul>
+    </div>
+    <div class="footer" role="contentinfo">
+        &#169; Copyright 2017, Jouniau Jules, Debachy Alexandre, Bivolarov Stoyan, Univ. Lille1.
+      Last updated on 12/12/2018.
+      Created using <a href="http://sphinx-doc.org/">Sphinx</a> 1.6.7.
+    </div>
+  </body>
+</html>

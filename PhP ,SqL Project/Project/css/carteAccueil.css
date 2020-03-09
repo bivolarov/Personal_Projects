@@ -1,0 +1,488 @@
+#cartecampus {
+                width : 500px;
+                height : 400px;
+                position: absolute;
+                right: 150px;
+                border-radius: 33px;
+            }
+
+
+
+body{
+  background-color: #0099ff;
+}
+
+.footer{
+  /*background-color: yellow;*/
+  border-top: 1px solid white;
+  border-bottom: 1px solid white;
+  position: absolute;
+  top : 450%; right: 5%; left: 5%;
+  height: 20%;
+  width: 90%;
+  margin-bottom: 10%;
+
+}
+#slot_1{
+  border-right: 1px solid white;
+  /*background-color: red;*/
+  text-align: center;
+
+  width: 200px;
+  height: 28px;
+  padding: 3.2%;
+  margin: 1% 0% 0% 2%;
+
+
+}
+#slot_2{
+  border-right: 1px solid white;
+  /*background-color: green;*/
+  text-align: center;
+  position: absolute;
+  top: 0%; left: 35%;
+
+  width: 200px;
+  height: 28px;
+  padding: 3.2%;
+  margin: 1% 0% 0% 1%;
+
+
+}
+#slot_3{
+  /*background-color: blue;*/
+  text-align: center;
+  position: absolute;
+  top: 0%; right: 0%;
+
+  width: 200px;
+  height: 28px;
+  padding: 3.2%;
+  margin: 1% 2% 0% 1%;
+
+}
+/*.information#first,#second,#three,#four,#five,#six,#seven,#eight,#nine,#ten*/
+/*
+#first{
+	border:1px solid black;
+    border-radius: 33px;
+    text-align:  center;
+    font-family:  "Fira Sans", sans-serif;
+    padding: 1% 3% 1% 3%;
+    background-color: whiteSmoke;
+    box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+
+    position: absolute;
+    top: 20%;
+    width: 35%;
+    height: 35%;
+
+}*/
+
+
+#premiere{
+  border-radius: 33px;
+  text-align:  center;
+  font-family:  "Fira Sans", sans-serif;
+  padding: 1% 3% 1% 3%;
+  background-color: whiteSmoke;
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+
+  position: absolute;
+  top: 20%;
+  width: 32%;
+  height: 35%;
+}
+
+#ville_first,#cp_first,#nom_first,#adresse_first,#marque_first,#carburants_first,#prix_first,#services_first{
+	border-top:1px solid black;
+	text-align: left;
+    padding-left: 5%;
+    padding-top: 1%;
+    margin-top:1%;
+
+    height : 5%;
+    font-size: 60%;
+}
+#ville_first:hover,#cp_first:hover,#nom_first:hover,#adresse_first:hover,#marque_first:hover,#carburants_first:hover,#prix_first:hover,#services_first:hover{
+	background-color: #e6e6e6;
+    border-bottom-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+    transform: scale(1.1);
+
+}
+
+#deuxieme{
+  border-radius: 33px;
+  text-align:  center;
+  font-family:  "Fira Sans", sans-serif;
+  padding: 1% 3% 1% 3%;
+  background-color: whiteSmoke;
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+
+  position: absolute;
+  top: 60%;
+  width: 32%;
+  height: 35%;
+}
+
+#ville_second,#cp_second,#nom_second,#adresse_second,#marque_second,#carburants_second,#prix_second,#services_second{
+	border-top:1px solid black;
+	text-align: left;
+    padding-left: 5%;
+    padding-top: 1%;
+    margin-top:1%;
+
+    height : 5%;
+    font-size: 60%;
+}
+#ville_second:hover,#cp_second:hover,#nom_second:hover,#adresse_second:hover,#marque_second:hover,#carburants_second:hover,#prix_second:hover,#services_second:hover{
+	background-color: #e6e6e6;
+    border-bottom-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+    transform: scale(1.1);
+
+}
+
+#troisieme{
+  border-radius: 33px;
+  text-align:  center;
+  font-family:  "Fira Sans", sans-serif;
+  padding: 1% 3% 1% 3%;
+  background-color: whiteSmoke;
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+
+  position: absolute;
+  top: 100%;
+  width: 32%;
+  height: 35%;
+}
+
+#ville_three,#cp_three,#nom_three,#adresse_three,#marque_three,#carburants_three,#prix_three,#services_three{
+	border-top:1px solid black;
+	text-align: left;
+    padding-left: 5%;
+    padding-top: 1%;
+    margin-top:1%;
+
+    height : 5%;
+    font-size: 60%;
+}
+#ville_three:hover,#cp_three:hover,#nom_three:hover,#adresse_three:hover,#marque_three:hover,#carburants_three:hover,#prix_three:hover,#services_three:hover{
+	background-color: #e6e6e6;
+    border-bottom-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+    transform: scale(1.1);
+
+}
+
+#quatrieme{
+  border-radius: 33px;
+  text-align:  center;
+  font-family:  "Fira Sans", sans-serif;
+  padding: 1% 3% 1% 3%;
+  background-color: whiteSmoke;
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+
+  position: absolute;
+  top: 140%;
+  width: 32%;
+  height: 35%;
+}
+
+#ville_four,#cp_four,#nom_four,#adresse_four,#marque_four,#carburants_four,#prix_four,#services_four{
+	border-top:1px solid black;
+	text-align: left;
+    padding-left: 5%;
+    padding-top: 1%;
+    margin-top:1%;
+
+    height : 5%;
+    font-size: 60%;
+}
+#ville_four:hover,#cp_four:hover,#nom_four:hover,#adresse_four:hover,#marque_four:hover,#carburants_four:hover,#prix_four:hover,#services_four:hover{
+	background-color: #e6e6e6;
+    border-bottom-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+    transform: scale(1.1);
+
+}
+
+#cinquieme{
+  border-radius: 33px;
+  text-align:  center;
+  font-family:  "Fira Sans", sans-serif;
+  padding: 1% 3% 1% 3%;
+  background-color: whiteSmoke;
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+
+  position: absolute;
+  top: 180%;
+  width: 32%;
+  height: 35%;
+}
+
+#ville_five,#cp_five,#nom_five,#adresse_five,#marque_five,#carburants_five,#prix_five,#services_five{
+	border-top:1px solid black;
+	text-align: left;
+    padding-left: 5%;
+    padding-top: 1%;
+    margin-top:1%;
+
+    height : 5%;
+    font-size: 60%;
+}
+#ville_five:hover,#cp_five:hover,#nom_five:hover,#adresse_five:hover,#marque_five:hover,#carburants_five:hover,#prix_five:hover,#services_five:hover{
+	background-color: #e6e6e6;
+    border-bottom-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+    transform: scale(1.1);
+
+}
+
+#sixieme{
+  border-radius: 33px;
+  text-align:  center;
+  font-family:  "Fira Sans", sans-serif;
+  padding: 1% 3% 1% 3%;
+  background-color: whiteSmoke;
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+
+  position: absolute;
+  top: 220%;
+  width: 32%;
+  height: 35%;
+}
+
+#ville_six,#cp_six,#nom_six,#adresse_six,#marque_six,#carburants_six,#prix_six,#services_six{
+	border-top:1px solid black;
+	text-align: left;
+    padding-left: 5%;
+    padding-top: 1%;
+    margin-top:1%;
+
+    height : 5%;
+    font-size: 60%;
+}
+#ville_six:hover,#cp_six:hover,#nom_six:hover,#adresse_six:hover,#marque_six:hover,#carburants_six:hover,#prix_six:hover,#services_six:hover{
+	background-color: #e6e6e6;
+    border-bottom-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+    transform: scale(1.1);
+
+}
+
+#septieme{
+  border-radius: 33px;
+  text-align:  center;
+  font-family:  "Fira Sans", sans-serif;
+  padding: 1% 3% 1% 3%;
+  background-color: whiteSmoke;
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+
+  position: absolute;
+  top: 260%;
+  width: 32%;
+  height: 35%;
+}
+
+#ville_seven,#cp_seven,#nom_seven,#adresse_seven,#marque_seven,#carburants_seven,#prix_seven,#services_seven{
+	border-top:1px solid black;
+	text-align: left;
+    padding-left: 5%;
+    padding-top: 1%;
+    margin-top:1%;
+
+    height : 5%;
+    font-size: 60%;
+}
+#ville_seven:hover,#cp_seven:hover,#nom_seven:hover,#adresse_seven:hover,#marque_seven:hover,#carburants_seven:hover,#prix_seven:hover,#services_seven:hover{
+	background-color: #e6e6e6;
+    border-bottom-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+    transform: scale(1.1);
+
+}
+
+#huitieme{
+  border-radius: 33px;
+  text-align:  center;
+  font-family:  "Fira Sans", sans-serif;
+  padding: 1% 3% 1% 3%;
+  background-color: whiteSmoke;
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+
+  position: absolute;
+  top: 300%;
+  width: 32%;
+  height: 35%;
+}
+
+#ville_eight,#cp_eight,#nom_eight,#adresse_eight,#marque_eight,#carburants_eight,#prix_eight,#services_eight{
+	border-top:1px solid black;
+	text-align: left;
+    padding-left: 5%;
+    padding-top: 1%;
+    margin-top:1%;
+
+    height : 5%;
+    font-size: 60%;
+}
+#ville_eight:hover,#cp_eight:hover,#nom_eight:hover,#adresse_eight:hover,#marque_eight:hover,#carburants_eight:hover,#prix_eight:hover,#services_eight:hover{
+	background-color: #e6e6e6;
+    border-bottom-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+    transform: scale(1.1);
+
+}
+
+#neuvieme{
+  border-radius: 33px;
+  text-align:  center;
+  font-family:  "Fira Sans", sans-serif;
+  padding: 1% 3% 1% 3%;
+  background-color: whiteSmoke;
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+
+  position: absolute;
+  top: 340%;
+  width: 32%;
+  hnine: 35%;
+}
+
+#ville_nine,#cp_nine,#nom_nine,#adresse_nine,#marque_nine,#carburants_nine,#prix_nine,#services_nine{
+	border-top:1px solid black;
+	text-align: left;
+    padding-left: 5%;
+    padding-top: 1%;
+    margin-top:1%;
+
+    hnine : 5%;
+    font-size: 60%;
+}
+#ville_nine:hover,#cp_nine:hover,#nom_nine:hover,#adresse_nine:hover,#marque_nine:hover,#carburants_nine:hover,#prix_nine:hover,#services_nine:hover{
+	background-color: #e6e6e6;
+    border-bottom-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+    transform: scale(1.1);
+
+}
+
+#dixieme{
+  border-radius: 33px;
+  text-align:  center;
+  font-family:  "Fira Sans", sans-serif;
+  padding: 1% 3% 1% 3%;
+  background-color: whiteSmoke;
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+
+  position: absolute;
+  top: 372%;
+  width: 32%;
+  hten: 35%;
+}
+
+#ville_ten,#cp_ten,#nom_ten,#adresse_ten,#marque_ten,#carburants_ten,#prix_ten,#services_ten{
+	border-top:1px solid black;
+	text-align: left;
+    padding-left: 5%;
+    padding-top: 1%;
+    margin-top:1%;
+
+    hten : 5%;
+    font-size: 60%;
+}
+#ville_ten:hover,#cp_ten:hover,#nom_ten:hover,#adresse_ten:hover,#marque_ten:hover,#carburants_ten:hover,#prix_ten:hover,#services_ten:hover{
+	background-color: #e6e6e6;
+    border-bottom-left-radius: 9px;
+    border-bottom-right-radius: 9px;
+    transform: scale(1.1);
+
+}
+
+
+#infos{
+  border-radius: 33px;
+  text-align:  center;
+  font-family:  "Fira Sans", sans-serif;
+  font-size: 65%;
+  padding: 2% 2% 0% 2%;
+  background-color: whiteSmoke;
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+
+  position: absolute;
+  top: 20%;
+  left: 4.5%;
+  width: 20%;
+  height: 22%;
+}
+
+#avis{
+  border-radius: 33px;
+  text-align:  center;
+  font-family:  "Fira Sans", sans-serif;
+  font-size: 75%;
+  padding: 1% 1% 0% 1%;
+  background-color: whiteSmoke;
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+
+  position: absolute;
+  top: 30%;
+  left: 35%;
+  width: 10%;
+  height: 12%;
+  visibility: hidden;
+}
+
+#posts{
+  position: absolute;
+  top: 50%;
+  visibility: hidden;
+
+}
+
+#all_posts{
+  width: 400px;
+  height: 200px;
+  overflow: auto;
+
+  position: absolute;
+  top: 60%;
+  left: 2%;
+  background-color: whiteSmoke;
+  visibility: hidden;
+
+  border-radius: 25px;
+  padding: 1% 1% 0% 1%;
+  box-shadow: 12px 12px 2px 1px rgba(0, 0, 255, .2);
+}
+
+
+#avis_station{
+  position: absolute;
+  top: 95%;
+  left: 15%;
+  background-color: whiteSmoke;
+  border-radius: 33px;
+  padding: 1%;
+}
+
+#comment{
+  position: absolute;
+  top: 90%;
+  right: 5%;
+  background-color: whiteSmoke;
+  border-radius: 33px;
+  padding: 1%;
+}
+
+.posts{
+  width: 600px;
+  height: 250px;
+  background-color: whiteSmoke;
+  margin: 1%;
+}
+
+.update{
+  background-color: whiteSmoke;
+}
